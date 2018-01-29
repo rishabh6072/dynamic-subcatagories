@@ -22,13 +22,23 @@ Template.addNew.events({
 		e.preventDefault();
 		var catItem = e.target.catagory.value;
 		var parentItem = e.target.parentItem.value;
-		Catagories.insert({
+		var selectedItem = Session.get('selectedItem');
+		if(selectedItem){
+			Catagories.insert({
+			catItem: catItem,
+			parentItem: selectedItem,
+			createdAt: new Date(),
+			});
+		} else {
+			Catagories.insert({
 			catItem: catItem,
 			parentItem: parentItem,
 			createdAt: new Date(),
-		});
+			});
+		}
+		 
 		// var child = [];
-		Catagories.update({"catItem": parentItem} ,{$push: { "child": catItem }});
+		Catagories.update({"_id": parentItem} ,{$push: { "child": catItem }});
 		console.log("submit form event working!!!")
         e.target.catagory.value = "";
 	},
@@ -37,6 +47,11 @@ Template.addNew.events({
 		var selectedItem = $(e.target).val();
 		console.log(selectedItem);
 		Session.set('selectedItem', selectedItem);
+		
+		// var i = 10;
+		// Session.set('selectedItem' + i, selectedItem);
+		// var s = Session.get('selectedItem'+ i);
+		// alert(s);
 	},
 });
 
@@ -44,11 +59,13 @@ Template.addNew.events({
 Template.addNew.helpers({
 	'catagory': function() {
 		var selectedItem = Session.get('selectedItem');
-		// if(selectedItem){
-		// 	return Catagories.find({"parentItem": selectedItem});
-		// }
-			return Catagories.find({"parentItem": "none"});
+		if(selectedItem){
+			return Catagories.find({"parentItem": selectedItem});
+		}
+			return Catagories.find({"parentItem": ""});
+			// return Catagories.find({});
 	},
+	
 });
 
 Template.registerHelper('notequals', function (a) {

@@ -1,7 +1,7 @@
 <template name="addNew">
 	<button class="logout btn btn-danger pull-right">Logout</button>
 <div class="container">
-	<h1>Add Catagories Page</h1>
+	<h1>Add Categories Page</h1>
 	{{> flashMessages}}
 	<form>
 	<input type="text" name="catagory" class="input-cat">
@@ -13,15 +13,15 @@
 <div class="form-group">
       <label for="sel1">Choose Parent Element:</label>
       <select class="form-control" id="sel1" name="parentItem">
-	      <option>none</option>
+	      <option value="">Select Parent Catagory</option>
 	      {{#each catagory}}
 	        <option value="{{_id}}">{{ catItem }}</option>
 		  {{/each}}
       </select>
+      {{#each catagory}}
+      	<!-- <h1>Cat -> </h1> -->
+      {{/each}}
 </div>
-
-
-
 	<input type="submit" name="" class="btn btn-success">
 	</form>
 </div>
