@@ -1,0 +1,12 @@
+/* CSS declarations go here */
+
+.container {
+	text-align: center;
+}
+.input-cat{
+	width: 30%;
+}
+.form-control {
+	width: 30%;
+	margin: 0 auto;
+}

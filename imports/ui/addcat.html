@@ -1,0 +1,29 @@
+<template name="addNew">
+	<button class="logout btn btn-danger pull-right">Logout</button>
+<div class="container">
+	<h1>Add Catagories Page</h1>
+	{{> flashMessages}}
+	<form>
+	<input type="text" name="catagory" class="input-cat">
+	<br>
+	  <!-- {{#each catagory}}
+			<input type="radio" name="parentItem" class="radio" value="{{catItem}}"> {{ catItem }} 
+	  {{/each}}
+ 	  -->
+<div class="form-group">
+      <label for="sel1">Choose Parent Element:</label>
+      <select class="form-control" id="sel1" name="parentItem">
+	      <option>none</option>
+	      {{#each catagory}}
+	        <option value="{{_id}}">{{ catItem }}</option>
+		  {{/each}}
+      </select>
+</div>
+
+
+
+	<input type="submit" name="" class="btn btn-success">
+	</form>
+</div>
+
+</template>

@@ -1,0 +1,15 @@
+<template name="register">
+	{{#if orsignup}}
+		<h2>SignUp</h2>
+	{{else}}
+		<h2>SignIn</h2>
+	{{/if}}
+	{{> flashMessages}}
+	<form class="{{#if orsignup}}signup{{else}}signin{{/if}}">
+		<input type="text" name="username" placeholder="New username" value="">
+		<input type="password" name="password" placeholder="password" value="">
+		<input type="submit" class="btn {{#if orsignup}}btn-primary{{else}}btn-success{{/if}}" value="{{#if orsignup}}Create an account{{else}}LogIn{{/if}}">
+	</form>
+	<h4>Or</h4>
+	<button class="btn {{#if orsignup}} reset btn-success{{else}} set btn-primary {{/if}}">{{#if orsignup}}SignIn{{else}}SignUp{{/if}}</button>
+</template>
