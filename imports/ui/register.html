@@ -1,4 +1,6 @@
 <template name="register">
+{{> navbar}}
+<div class="container">
 	{{#if orsignup}}
 		<h2>SignUp</h2>
 	{{else}}
@@ -6,10 +8,17 @@
 	{{/if}}
 	{{> flashMessages}}
 	<form class="{{#if orsignup}}signup{{else}}signin{{/if}}">
-		<input type="text" name="username" placeholder="New username" value="">
-		<input type="password" name="password" placeholder="password" value="">
+	<div class="form-group">
+		<input type="text" name="username" class="form-control" placeholder="New username" value="">
+	</div>
+	<div class="form-group">
+		<input type="password" name="password" class="form-control" placeholder="password" value="">
+	</div>
+	<div class="form-group">
 		<input type="submit" class="btn {{#if orsignup}}btn-primary{{else}}btn-success{{/if}}" value="{{#if orsignup}}Create an account{{else}}LogIn{{/if}}">
+	</div>
 	</form>
 	<h4>Or</h4>
 	<button class="btn {{#if orsignup}} reset btn-success{{else}} set btn-primary {{/if}}">{{#if orsignup}}SignIn{{else}}SignUp{{/if}}</button>
+</div>
 </template>

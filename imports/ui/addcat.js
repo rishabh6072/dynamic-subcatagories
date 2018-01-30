@@ -3,13 +3,14 @@ import { Template } from 'meteor/templating';
 
 import { Accounts } from 'meteor/accounts-base';
 import './addcat.html';
+import './navbar.html';
 import { Catagories } from '../api/catagory.js';
 
 
 Template.addNew.events({
 //LOGOUT EVENT
 	'click .logout' : function(e) {
-		Meteor.logout(function(err){
+		Meteor.logout(function(err){ 
 			if(err) {
 				FlashMessages.sendError(err);
 			} else {
@@ -77,21 +78,64 @@ Template.addNew.helpers({
 		}
 	},
 
-	'catList' : function() {
-		// var maxLevel = Catagories.find({level :{$gt : 3}});
+	// 	'catList' : function() {
+	// 	var countParent = Catagories.find({"parentItem": ""}).count();
+	// 	var traversedList = [];
+	// 	for(var i = 0 ; i < countParent; i++){
+	// 	 	var MainId = Catagories.find({"parentItem": ""})[i]._id;
+	// 	 	console.log(MainId)
+	// 	 	traversedList[i] = findQuery(MainId);
+	// 	 	console.log(traversedList);
+	// 	 	// for(var j = 0 ; j < )
+	// 	}
+	// 	console.log(traversedList);
+	// },
 
-		// return Catagories.aggregate( [ { $group : { _id : "$parentItem" } } ] )
-	},
-	  treeArgs: {
-	    collection: Catagories,
-	    // subscription: subscription,
-	    events: {
-	      changed: function(e, item) {
-	        console.log("Item " + item + "selected.");
-	      }
-	    }
-	  },
+
+
+
+// 'get_categories': function(){
+// return Catagories.find({parentItem:''});
+
+// },
+
+// 'get_sub_categories': function(){
+// return Catagories.find({parentItem:this._id});
+// },
+
+catList: function() {
+    var results = [];
+
+    var mapChildren = function(category, level) {
+      // add the appropriate number of dashes before each name
+      var prefix = Array(2 * level).join('---');
+      results.push({_id: category._id, catItem: prefix + category.catItem});
+      // repeat for each child category
+      var children = Catagories.find({parentItem: category._id}).fetch();
+      _.each(children, function(c) {
+        // make sure to increment the level for the correct prefix
+        mapChildren(c, level + 1);
+      });
+    };
+
+    // map each of the root categories - I'm unsure if the parent
+    // selector is correct or if it should be {parentId: {$exists: false}}
+    _.each(Catagories.find({parentItem: ''}).fetch(), function(c) {
+      mapChildren(c, 0);
+    });
+
+    // results should be an array of objects like {_id: String, name: String}
+    return results;
+  },
+
 });
+
+
+// function findQuery(id) {
+//       return Catagories.findOne({"parentItem": "id" })._id;
+//       // return "rishabh";
+// }
+
 
 Template.registerHelper('notequals', function (a) {
       return !a;

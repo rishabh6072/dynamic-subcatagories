@@ -3,7 +3,7 @@ import { Template } from 'meteor/templating';
  
 import { Accounts } from 'meteor/accounts-base';
 import './register.html';
-
+import './navbar.html';
 Template.register.events({
 	'click .set' : function(){
 		Session.set('orsignup', true);

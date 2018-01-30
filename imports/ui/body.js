@@ -9,6 +9,11 @@ import './register.js';
 
 import './addcat.html';
 import './addcat.js';
+import './navbar.html';
+import './navbar.js';
+import './article.html';
+import './article.js';
+
 
 
   FlashMessages.configure({

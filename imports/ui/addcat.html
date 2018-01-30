@@ -1,17 +1,22 @@
 <template name="addNew">
-	<button class="logout btn btn-danger pull-right">Logout</button>
+	{{> navbar}}
 <div class="container">
 	<h1>Add Categories Page</h1>
 	{{> flashMessages}}
 	<form>
-	<input type="text" name="catagory" class="input-cat">
+	<div class="form-group">
+		
+	<input type="text" name="catagory" class="input-cat form-control" placeholder=" Add Category">
+	</div>
+
 	<br>
 	  <!-- {{#each catagory}}
 			<input type="radio" name="parentItem" class="radio" value="{{catItem}}"> {{ catItem }} 
 	  {{/each}}
  	  -->
 <div class="form-group">
-      <!-- <label for="sel1">Choose Parent Element:</label>
+
+    <!--   <label for="sel1">Choose Parent Element:</label>
       <select class="form-control" id="sel1" name="parentItem" value="{{#if selectedItem }} {{selectedItem}} {{/if}}">
 	      <option value="">Select Parent Category</option>
 	      {{#each catagory}}
@@ -19,18 +24,40 @@
 		  {{/each}}
       </select> -->
 
-
+<!-- 
       <label for="sel1">Choose Parent Element:</label>
       <select class="form-control" id="sel1" name="parentItem">
 	      <option value="">Select Parent Category</option>
-	      {{#each catagory}}
+	      {{#each catList}}
 	        <option value="{{_id}}">{{ catItem }} {{level}}</option>
 		  {{/each}}
-      </select>
-      
+      </select> -->
+
+<!-- <label for="sel1">Choose Parent Element:</label>
+<select class="form-control" id="sel1" name="parentItem" >
+<option value="">Select Parent Category</option>
+{{#each get_categories}}
+<option value="{{_id}}">{{catItem}}</option>
+{{#each get_sub_categories}}
+{{> subcategoryselect}}
+{{/each}}
+{{/each}}
+
+</select> -->
+  <select id="category" name="parentItem" class="category form-control">
+    <option value="">Select Parent Category</option>
+    {{#each catList}}
+      <option value="{{_id}}">{{catItem}}</option>
+    {{/each}}
+  </select>
 </div>
+
 	<input type="submit" name="" class="btn btn-success">
 	</form>
 </div>
-{{> TreeView treeArgs }}	
+</template>
+
+
+<template name="subcategoryselect">
+<option value="{{_id}}"> --> {{catItem}}</option>
 </template>
