@@ -11,19 +11,26 @@
 	  {{/each}}
  	  -->
 <div class="form-group">
+      <!-- <label for="sel1">Choose Parent Element:</label>
+      <select class="form-control" id="sel1" name="parentItem" value="{{#if selectedItem }} {{selectedItem}} {{/if}}">
+	      <option value="">Select Parent Category</option>
+	      {{#each catagory}}
+	        <option value="{{_id}}">{{#if selectedItem }} {{selectedItem}} -> {{/if}} {{ catItem }}</option>
+		  {{/each}}
+      </select> -->
+
+
       <label for="sel1">Choose Parent Element:</label>
       <select class="form-control" id="sel1" name="parentItem">
-	      <option value="">Select Parent Catagory</option>
+	      <option value="">Select Parent Category</option>
 	      {{#each catagory}}
-	        <option value="{{_id}}">{{ catItem }}</option>
+	        <option value="{{_id}}">{{ catItem }} {{level}}</option>
 		  {{/each}}
       </select>
-      {{#each catagory}}
-      	<!-- <h1>Cat -> </h1> -->
-      {{/each}}
+      
 </div>
 	<input type="submit" name="" class="btn btn-success">
 	</form>
 </div>
-
+{{> TreeView treeArgs }}	
 </template>
