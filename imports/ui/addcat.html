@@ -44,7 +44,7 @@
 {{/each}}
 
 </select> -->
-  <select id="category" name="parentItem" class="category form-control">
+  <select id="sel1" name="parentItem" class="category form-control">
     <option value="">Select Parent Category</option>
     {{#each catList}}
       <option value="{{_id}}">{{catItem}}</option>
@@ -61,3 +61,4 @@
 <template name="subcategoryselect">
 <option value="{{_id}}"> --> {{catItem}}</option>
 </template>
+

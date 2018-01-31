@@ -16,15 +16,42 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="/admin/categories">Add Categories</a></li>      
-        <li><a href="/admin/addarticles">Add Articles</a></li>      
+      {{#if currentUser}}
+        <li id="addcat"><a href="/admin/categories">Add Categories</a></li>      
+        <li><a href="/admin/addarticles">Add Articles</a></li>
+      {{/if}}      
+        <!-- <li>    
+        <a class="dropdown-toggle" type="button" data-toggle="dropdown">Store
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a tabindex="-1" href="#">Men</a></li>
+          <li><a tabindex="-1" href="#">Women</a></li>
+          <li class="dropdown-submenu">
+            <a class="test" tabindex="-1" href="#">Kids <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a tabindex="-1" href="#">Games</a></li>
+              <li><a tabindex="-1" href="#">Toys</a></li>
+              <li class="dropdown-submenu">
+                <a class="test" href="#">Clothes <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Shorts</a></li>
+                  <li><a href="#">T-shirts</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        </li> -->
       </ul>
       
-      <ul class="nav navbar-nav navbar-right">
-      
-        <li class="navbar-right"><a class="logout" href="#">Logout</a></li>
-        <li class="navbar-right"><a class="" href="/admin">SignIn</a></li>
 
+      <ul class="nav navbar-nav navbar-right">
+      {{#if currentUser}}
+        <li class="navbar-right"><a class="logout" href="#">Logout</a></li>
+      {{/if}}
+      {{#if notequals currentUser}}
+        <li class="navbar-right"><a class="" href="/admin">SignIn</a></li>
+      {{/if}}
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
