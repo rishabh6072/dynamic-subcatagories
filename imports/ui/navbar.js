@@ -13,7 +13,7 @@ Template.navbar.events({
 				FlashMessages.sendError(err);
 			} else {
 				FlashMessages.sendSuccess("Logged Out Successfully");
-				FlowRouter.go('/admin');
+				FlowRouter.go('/');
 			}
 		});
 	},
@@ -37,3 +37,22 @@ Template.registerHelper('notequals', function (a) {
 Template.registerHelper('equals', function (a, b) {
       return a === b;
     });
+
+
+Template.navbar.onRendered(function () {
+ // $(document).ready(function() {
+	//    $("li").click(function() {
+	//       $("li").removeClass("active");
+	//       $(this).addClass("active");
+	//    });
+	// });
+
+
+	$(document).ready(function(){
+    $('.dropdown-submenu a.test').on("click", function(e){
+      $(this).next('ul').toggle();
+      e.stopPropagation();
+      e.preventDefault();
+    });
+  	});
+});

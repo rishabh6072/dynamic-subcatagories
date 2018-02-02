@@ -70,7 +70,11 @@ Template.addNewArt.helpers({
     var results = [];
 
     var mapChildren = function(category, level) {
-      var prefix = Array(2 * level).join('---');
+      var prefix = "";
+    	var dash = "---";
+    	for(var i =0; i < level; i++){
+    		prefix = prefix + dash;
+    	}
       results.push({_id: category._id, catItem: prefix + category.catItem});
       _.each(Catagories.find({parentItem: category._id}).fetch(), function(c) {
         mapChildren(c, level + 1);

@@ -10,17 +10,19 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">Categories</a>
+      <a class="navbar-brand " href="/">Categories</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
+      <li ><a class="{{activehome}}" href="/">Home</a></li>  
       {{#if currentUser}}
-        <li id="addcat"><a href="/admin/categories">Add Categories</a></li>      
-        <li><a href="/admin/addarticles">Add Articles</a></li>
+        <li ><a class="{{activecat}}" href="/admin/categories">Manage Categories</a></li>      
+        <li ><a class="{{activeart}}" href="/admin/addarticles">Add Articles</a></li>
+  
       {{/if}}      
-        <!-- <li>    
+        <li>    
         <a class="dropdown-toggle" type="button" data-toggle="dropdown">Store
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -40,8 +42,22 @@
               </li>
             </ul>
           </li>
+          <li class="dropdown-submenu">
+            <a class="test" tabindex="-1" href="#">Kids <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a tabindex="-1" href="#">a</a></li>
+              <li><a tabindex="-1" href="#">b</a></li>
+              <li class="dropdown-submenu">
+                <a class="test" href="#">c <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">cc</a></li>
+                  <li><a href="#">ccc</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
         </ul>
-        </li> -->
+        </li>
       </ul>
       
 
@@ -50,7 +66,7 @@
         <li class="navbar-right"><a class="logout" href="#">Logout</a></li>
       {{/if}}
       {{#if notequals currentUser}}
-        <li class="navbar-right"><a class="" href="/admin">SignIn</a></li>
+        <li class="navbar-right"><a class="{{activesign}}" href="/admin">SignIn</a></li>
       {{/if}}
       </ul>
     </div><!-- /.navbar-collapse -->

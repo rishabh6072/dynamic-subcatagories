@@ -18,9 +18,25 @@
 	background-blend-mode: saturation;
 }
 
-.active {
-	background: rgba(0, 0 , 0, 0.7);
-	color: rgb(255, 255, 255);
+.categories, .addarticles, .admin, .root {
+	background: rgba(0, 0 , 0, 0.6);
+	color: rgb(255, 255, 255) !important;
 	font-weight: 600;
 }
 
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+	background: rgba(0, 0 , 0, 0.8);
+	color: rgb(255, 255, 255) !important;
+	/*font-weight: 600;*/
+}
+
+.display-category {
+	margin-top: 2%;
+	text-align: left;
+	text-indent: 10px;
+	font-size: 1.4em;
+}
+
+td, th {
+	padding: 10px;
+}

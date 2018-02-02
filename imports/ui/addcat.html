@@ -3,62 +3,87 @@
 <div class="container">
 	<h1>Add Categories Page</h1>
 	{{> flashMessages}}
-	<form>
-	<div class="form-group">
+	{{> sAlert}}
+
+	<form class="submit">
+		<div class="form-group">
+			<input type="text" name="catagory" class="input-cat form-control" value="{{editItem.catItem}}" placeholder=" Add Category">
+		</div>
+
+		<br>
 		
-	<input type="text" name="catagory" class="input-cat form-control" placeholder=" Add Category">
-	</div>
+		<div class="form-group">
+		  <select id="sel1" name="parentItem" class="category form-control">
+		    <option value="">Select Parent Category</option>
+		    {{#each catList}}
+		      <option value="{{_id}}">{{catItem}}</option>
+		    {{/each}}
+		  </select>
+		</div>
 
-	<br>
-	  <!-- {{#each catagory}}
-			<input type="radio" name="parentItem" class="radio" value="{{catItem}}"> {{ catItem }} 
-	  {{/each}}
- 	  -->
-<div class="form-group">
-
-    <!--   <label for="sel1">Choose Parent Element:</label>
-      <select class="form-control" id="sel1" name="parentItem" value="{{#if selectedItem }} {{selectedItem}} {{/if}}">
-	      <option value="">Select Parent Category</option>
-	      {{#each catagory}}
-	        <option value="{{_id}}">{{#if selectedItem }} {{selectedItem}} -> {{/if}} {{ catItem }}</option>
-		  {{/each}}
-      </select> -->
-
-<!-- 
-      <label for="sel1">Choose Parent Element:</label>
-      <select class="form-control" id="sel1" name="parentItem">
-	      <option value="">Select Parent Category</option>
-	      {{#each catList}}
-	        <option value="{{_id}}">{{ catItem }} {{level}}</option>
-		  {{/each}}
-      </select> -->
-
-<!-- <label for="sel1">Choose Parent Element:</label>
-<select class="form-control" id="sel1" name="parentItem" >
-<option value="">Select Parent Category</option>
-{{#each get_categories}}
-<option value="{{_id}}">{{catItem}}</option>
-{{#each get_sub_categories}}
-{{> subcategoryselect}}
-{{/each}}
-{{/each}}
-
-</select> -->
-  <select id="sel1" name="parentItem" class="category form-control">
-    <option value="">Select Parent Category</option>
-    {{#each catList}}
-      <option value="{{_id}}">{{catItem}}</option>
-    {{/each}}
-  </select>
-</div>
-
-	<input type="submit" name="" class="btn btn-success">
+		<input type="submit" name="" class="btn btn-success">
+		<button class="alertdelete btn btn-danger" name="" {{deleteDisabled}}>Delete</button>
 	</form>
 </div>
+
+
+<div class="display-category container">
+      <table class="table table-responsive table-bordered" border="1">
+      <tr class="info">
+      	<th>Select</th>
+      	<th>Category List</th>
+      	<!-- <th>Actions</th> -->
+      </tr>
+		{{#each catDisplay}}
+      	<tr>
+      		<td><input type="checkbox" name=""></td>
+      		<td>{{catItem}}</td>
+      		<!-- <td><div class="btn edit"><i class="fas fa-edit"></i></div></td> -->
+      	</tr>
+    	{{/each}}
+		<tr class="sub"></tr>
+    	<!-- <tr>
+    	<td></td>
+    	<td>
+      		<tr>
+      			<td>1</td>
+      			<tr>
+      				<td>1.1</td>
+      				<tr><td>1.1.1</td></tr>
+      				<tr><td>1.1.2</td></tr>
+      			</tr>
+      			<tr>
+      				<td>1.2</td>
+      				<tr><td>1.2.1</td></tr>
+      				<tr><td>1.2.2</td></tr>
+      				<tr><td>1.2.3</td></tr>
+      			</tr>
+      			<tr>
+      				<td>1.3</td>
+	      			<tr><td>1.3.1</td></tr>
+      			</tr>
+      		</tr>
+      		
+      		<tr>
+      			<td>2</td>
+      			<tr>
+      				<td>2.1</td>
+      				<tr><td>2.1.1</td></tr>
+      				<tr><td>2.1.2</td></tr>
+      			</tr>	
+      			<tr>
+      				<td>2.2</td>
+      				<tr><td>2.2.1</td></tr>
+      			</tr>	
+      		</tr>
+      		</td>
+    	</tr> -->
+      </table>
+</div>
+
+<div class="demo"></div>
 </template>
 
 
-<template name="subcategoryselect">
-<option value="{{_id}}"> --> {{catItem}}</option>
-</template>
+
 
