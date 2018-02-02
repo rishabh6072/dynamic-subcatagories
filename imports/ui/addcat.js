@@ -8,7 +8,7 @@ import './navbar.js';
 import '../../client/main.js';
 import { Catagories } from '../api/catagory.js';
 import { Articles } from '../api/article.js';
-
+import { ReactiveDict } from 'meteor/reactive-dict';
 
 Template.addNew.events({
 	'submit .submit' : function(e){
@@ -112,17 +112,173 @@ Template.addNew.events({
 });
 
 
-var results = [];
 
 Template.addNew.helpers({
 
 // DROPDOWN LIST 
 
-// 'catList': function() {
-//     var results = [];
+'catList': function() {
+    var results = [];
 
+    var mapChildren = function(category, level) {
+    	var prefix = "";
+    	var dash = "---";
+    	for(var i =0; i < level; i++){
+    		prefix = prefix + dash;
+    	}
+      results.push({_id: category._id, catItem: prefix + category.catItem});
+      _.each(Catagories.find({parentItem: category._id}).fetch(), function(c) {
+        mapChildren(c, level + 1);
+      });
+    };
+
+    _.each(Catagories.find({parentItem: ''}).fetch(), function(c) {
+      mapChildren(c, 0);
+    });
+    // const instance = Template.instance();
+    // template.templateDictionary.set('results', results);
+    console.log(results);
+    return results;
+  },
+// LIST DISPLAY
+
+  'catDisplay': function() {
+   
+	var results = [];
+    var mapChildren = function(category) {
+     //  var prefix = "";
+    	// var dash = "---";
+    	// for(var i =0; i < level; i++){
+    	// 	prefix = prefix + dash;
+    	// }
+      results.push({_id: category._id, level: category.level, catItem: category.catItem});
+      _.each(Catagories.find({parentItem: category._id}).fetch(), function(c) {
+        mapChildren(c);
+      });
+    };
+
+    _.each(Catagories.find({parentItem: ''}).fetch(), function(c) {
+      mapChildren(c);
+    });
+    console.log(results);
+    return results;
+
+ // const instance = Template.instance();
+ // var resultsa = Template.instance().templateDictionary.get('results');
+ // 		console.log(resultsa[0]);
+ // 		console.log(resultsa[2]);
+
+
+
+	// for(var i = 0; i < results.length; i++){
+	// 	var str = results[i].catItem;
+	// 	if(!str.startsWith("-")){
+	// 		var a = results[i].catItem;
+	// 		$(".sub").append('<h1>{{catItem}}</h1>');
+	// 	} else if (str.startsWith("---------")){
+	// 		$(".sub").append('<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;level 3!!</h1>');
+	// 	} else if (str.startsWith("------")){
+	// 		$(".sub").append('<h1>&nbsp;&nbsp;&nbsp;&nbsp;level 2!!</h1>');
+	// 	} else if (str.startsWith("---")){
+	// 		$(".sub").append('<h1>&nbsp;&nbsp;level 1!!</h1>');
+	// 	}
+	//   }
+
+  },
+
+ // DELETE CATEGORY
+  'deleteDisabled' : function() {
+  	var disabled = Session.get('disabled');
+  	if(disabled){
+  		return 'disabled';
+  	}
+  },
+  'myCollection': function () {
+        return Catagories;
+    },
+    settings: function () {
+        return {
+            collection: Catagories,
+            rowsPerPage: 10,
+            showFilter: false,
+            fields: [
+            		 {key: 'catItem', label: 'Categories',cellClass: 'col-md-10'},
+            		 {
+            		 	key: 'level',
+            		    label: 'Level',
+            		    cellClass: 'col-md-2',
+            		    cellClass: function (value, object) {
+						     var css = 'red-cell';
+						     // do some logic here
+						     if (value == 2){
+						     	// return $(td).css("magin-left: 40px;")
+						     	return css;
+						     }
+						     
+						}
+            		  }
+            		]
+        	};
+    },
+  // 'editItem' : function() {
+  // 	var editItem = Session.get('selectedCategory');
+  // 	return editItem;
+  // },
+});
+
+
+Template.registerHelper('notequals', function (a) {
+      return !a;
+    });
+
+Template.registerHelper('equals', function (a, b) {
+      return a === b;
+    });
+
+Template.registerHelper('str', function (str) {
+	if(str.startsWith('---')){
+      return str.slice(3);
+	} else {
+		return str;
+	}
+});
+
+
+
+Template.addNew.onRendered(function () {
+  	Session.set('disabled', true);
+
+	//  	console.log(results);
+ // 	 	console.log(results[0]);
+	// for(var i = 0; i < results.length; i++){
+	// 	var str = results[i].catItem;
+	// 	if(!str.startsWith("-")){
+	// 		$(".sub").append('<h1>level 0!!</h1>');
+	// 	} else if (str.startsWith("---------")){
+	// 		$(".sub").append('<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;level 3!!</h1>');
+	// 	} else if (str.startsWith("------")){
+	// 		$(".sub").append('<h1>&nbsp;&nbsp;&nbsp;&nbsp;level 2!!</h1>');
+	// 	} else if (str.startsWith("---")){
+	// 		$(".sub").append('<h1>&nbsp;&nbsp;level 1!!</h1>');
+	// 	}
+	//   }
+	  
+
+});
+
+
+// if (Meteor.isServer) {
+// Meteor.publish('results', function() {
+//   return results;
+// });
+// }
+
+// Template.addNew.onCreated(function() {
+// this.getresults = () => 
+
+// results = [];
 //     var mapChildren = function(category, level) {
-//     	var prefix = "";
+//       var prefix = "";
 //     	var dash = "---";
 //     	for(var i =0; i < level; i++){
 //     		prefix = prefix + dash;
@@ -137,97 +293,13 @@ Template.addNew.helpers({
 //       mapChildren(c, 0);
 //     });
 
+
+//     // console.log(results[3]);
+
 //     return results;
-//   },
-// LIST DISPLAY
-
-  'catDisplay': function() {
-   
-	results = [];
-    var mapChildren = function(category, level) {
-      var prefix = "";
-    	var dash = "---";
-    	for(var i =0; i < level; i++){
-    		prefix = prefix + dash;
-    	}
-      results.push({_id: category._id, catItem: prefix + category.catItem});
-      _.each(Catagories.find({parentItem: category._id}).fetch(), function(c) {
-        mapChildren(c, level + 1);
-      });
-    };
-
-    _.each(Catagories.find({parentItem: ''}).fetch(), function(c) {
-      mapChildren(c, 0);
-    });
-
-
-    // console.log(results[3]);
-
-    return results;
-
-  },
-
- // DELETE CATEGORY
-  'deleteDisabled' : function() {
-  	var disabled = Session.get('disabled');
-  	if(disabled){
-  		return 'disabled';
-  	}
-  },
-  'editItem' : function() {
-  	var editItem = Session.get('selectedCategory');
-  	return editItem;
-  }
-});
-
-
-Template.registerHelper('notequals', function (a) {
-      return !a;
-    });
-
-Template.registerHelper('equals', function (a, b) {
-      return a === b;
-    });
-
-
-
-//DELETE WITHOUT ID
-// CollectionName.find({otherField: "hi"}).forEach(function (doc) {
-//   CollectionName.remove({_id: doc._id});
+ 	
+//   this.autorun(() => {
+//     this.subscribe('results', this.getresults());
+//   });
 // });
 
-
-Template.addNew.onRendered(function () {
-  	Session.set('disabled', true);
-
-
-	  
-
-});
-
-Meteor.publish('results', function() {
-  return results;
-});
-
-Template.Lists_show_page.onCreated(function() {
-this.results(() => {
-	
-  	console.log(results);
-  	console.log(results[0]);
-	for(var i = 0; i < results.length; i++){
-		var str = results[i].catItem;
-		if(!str.startsWith("-")){
-			$(".sub").append('<h1>level 0</h1>');
-		} else if (str.startsWith("---------")){
-			$(".sub").append('<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;level 3!!</h1>');
-		} else if (str.startsWith("------")){
-			$(".sub").append('<h1>&nbsp;&nbsp;&nbsp;&nbsp;level 2!!</h1>');
-		} else if (str.startsWith("---")){
-			$(".sub").append('<h1>&nbsp;&nbsp;level 1!!</h1>');
-		}
-	  }
-	});
-  this.autorun(() => {
-    this.subscribe('results', this.getresults());
-  });
-});

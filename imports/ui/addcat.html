@@ -28,21 +28,71 @@
 
 
 <div class="display-category container">
-      <table class="table table-responsive table-bordered" border="1">
-      <tr class="info">
-      	<th>Select</th>
+      <!-- <table class="table table-responsive table-bordered" border="1">
+      <tr>
       	<th>Category List</th>
-      	<!-- <th>Actions</th> -->
+      	<th></th>
+      	<th></th>
+      	<th></th>
       </tr>
-		{{#each catDisplay}}
-      	<tr>
-      		<td><input type="checkbox" name=""></td>
-      		<td>{{catItem}}</td>
-      		<!-- <td><div class="btn edit"><i class="fas fa-edit"></i></div></td> -->
-      	</tr>
-    	{{/each}}
-		<tr class="sub"></tr>
-    	<!-- <tr>
+	  {{#each catDisplay}}
+	  {{#if equals level 0}}
+		  	<tr>
+		  		<td>{{catItem}}</td>
+		  		<td></td>
+		  		<td></td>
+		  		<td></td>
+	      	</tr>
+	      {{else}}
+	      	{{#if equals level 1 }}
+	      	<tr>
+	      		<td></td>
+	      		<td>{{catItem}}</td>
+	      		<td></td>	
+	      		<td></td>	
+	      	</tr>
+	      		{{else}}
+	      		{{#if equals level 2}}
+	      		<tr>
+	      			<td></td>
+	      			<td></td>
+	      			<td>{{catItem}}</td>
+	      			<td></td>
+	      		</tr>
+	      		{{else}}
+	      			{{#if equals level 3 }}
+	      				<td></td>
+	      				<td></td>
+		      			<td></td>
+		      			<td>{{catItem}}</td>
+	      			
+	      			{{else}}
+	      				{{#if equals level 4 }}
+	      				<td></td>
+	      				<td></td>
+		      			<td></td>
+		      			<td>{{catItem}}</td>
+		      			{{/if}}
+		      			{{/if}}
+	      		{{/if}}
+	      	{{/if}}
+      {{/if}}
+      {{/each}}
+
+      </table>
+      		 -->
+
+      		 {{> reactiveTable collection=myCollection fields=fields settings=settings}}
+      
+</div>
+
+<div class="demo"></div>
+</template>
+
+
+
+
+<!-- <tr>
     	<td></td>
     	<td>
       		<tr>
@@ -78,12 +128,3 @@
       		</tr>
       		</td>
     	</tr> -->
-      </table>
-</div>
-
-<div class="demo"></div>
-</template>
-
-
-
-

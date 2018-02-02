@@ -1,9 +1,7 @@
 import '../imports/ui/body.js';
 // import '../imports/ui/navbar.js';
-
-console.log("hello from main.js");
-	
-
+import { Catagories } from '../imports/api/catagory.js';
+import { Articles } from '../imports/api/article.js';
 
 	Meteor.startup(function () {
 

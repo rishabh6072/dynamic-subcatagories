@@ -31,6 +31,7 @@
 }
 
 .display-category {
+	/*width: 40%;*/
 	margin-top: 2%;
 	text-align: left;
 	text-indent: 10px;
@@ -39,4 +40,17 @@
 
 td, th {
 	padding: 10px;
+}
+
+.col-md2 {
+	margin-left: 20px;
+}
+.css {
+	margin-left: 20px;
+	background: red;
+}
+
+.red-cell {
+  /*background: red;*/
+  margin-left: 10px;
 }
