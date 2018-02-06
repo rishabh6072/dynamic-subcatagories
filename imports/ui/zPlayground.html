@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PlayGround</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <style>
+  </style>
+</head>
+<body>
+	<center>
+ 	<H1>Play Ground</H1>
+	</center>
+	<div id="box"></div>
+
+<script>
+
+	var results = [
+	{_id: "AGbs95qcJSDszf8yK", level: 0, catItem: "1"}, {_id: "5bGjudPPzZwqsNXsD", level: 1, catItem: "1.1"}, {_id: "Wiw5pmsFprbwhknCZ", level: 2, catItem: "1.1.1"}, {_id: "NeMFFbfw6H3r8cyXL", level: 3, catItem: "1.1.1.1"}, {_id: "K6PSK3gMMXYTfoSCy", level: 2, catItem: "1.1.2"}, {_id: "HAQ8vST2hbC6jmAKf", level: 1, catItem: "1.2"}, {_id: "duwso3EtQRHnQXGYu", level: 0, catItem: "2"}, {_id: "ijX9J3XrF7QgWjGLG", level: 0, catItem: "3"}, {_id: "9NsyXsBjRZFAwGLe8", level: 0, catItem: "Men"}, {_id: "zyagA9QgmA5xtSAGT", level: 1, catItem: "Denim"}, {_id: "7bjZMaEAhcvd5ScDm", level: 2, catItem: "blue"}, {_id: "wSvQM7RBMgGr6BRrP", level: 0, catItem: "Women"}, {_id: "Wdva4roquqWGm2XLu", level: 1, catItem: "Gowns"}
+	]
+	console.log(results);
+	
+	var html = "<div class='container'><table class='table table-striped table-bordered table-responsive'></div>";
+	html+= "<tr><th>Category</th><th>Level</th></tr>"
+    for (var i = 0; i < results.length; i++) {
+			var lev = results[i].level;
+			var pixels = lev * 30;
+			html+="<tr>";
+			html+="<td style='margin-left: {{pixels}}px; display: block;'>"+results[i].catItem+"</td>";
+			html+="<td>"+results[i].level+"</td>";	
+			html+="</tr>";	
+    }
+    html+="</table>";
+document.getElementById("box").innerHTML = html;
+</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>

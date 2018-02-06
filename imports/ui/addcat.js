@@ -10,18 +10,35 @@ import { Catagories } from '../api/catagory.js';
 import { Articles } from '../api/article.js';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
+var checkedArr = new ReactiveArray([]);
+
 Template.addNew.events({
 	'submit .submit' : function(e){
 		e.preventDefault();
 		var catItem = e.target.catagory.value;
 		var parentItem = e.target.parentItem.value;
+		
 		var selectedItem = Session.get('selectedItem');
 		if(selectedItem){
 		var levelChild = Catagories.findOne({"_id": selectedItem}).level + 1;
 		}
 		if(selectedItem){
+			var selectedItemStatus = Catagories.findOne({"_id": selectedItem}).status;
+			console.log(selectedItemStatus);
+		} else {
+			var status = e.target.status.value;
+		}
+
+			if(selectedItemStatus == "Unpublished"){
+				var status = "Unpublished"
+			} else if (selectedItemStatus == "Published") {
+				var status = e.target.status.value;
+			}
+		
+		if(selectedItem){
 			Catagories.insert({
 			catItem: catItem,
+			status: status,
 			parentItem: selectedItem,
 			level: levelChild,
 			createdAt: new Date(),
@@ -29,6 +46,7 @@ Template.addNew.events({
 		} else {
 			Catagories.insert({
 			catItem: catItem,
+			status: status,
 			parentItem: parentItem,
 			level: 0,
 			createdAt: new Date(),
@@ -49,9 +67,10 @@ Template.addNew.events({
 		} else {
 			Session.set('disabled', true);
 		}
-		},
-
+	},
+// ----------------
 // DELETE CATEGORY 
+// ----------------
 
 	'click .delete' : function(e) {
 		e.preventDefault();
@@ -98,24 +117,67 @@ Template.addNew.events({
 	'click .no' : function() {
 		sAlert.closeAll({effect: 'genie'});
 	},
+// ----------------
+// EDIT CATEGORY
+// ----------------
 
-//EDIT CATEGORY
-
-	'click .edit' : function() {
-		var categoryId = this._id;
-		// console.log(categoryId + " you clicked!!");
-		// Session.set('selectedId', categoryId);
-		var selectedCategory = Catagories.findOne({_id: categoryId});
-		// console.log(selectedCategory.catItem + " Selected Cat");
-		Session.set('selectedCategory', selectedCategory);
+	'click .edit' : function(e) {
+		var selectedEdit = this._id;
+		Session.set('selectedEdit', selectedEdit);
+		console.log(selectedEdit);
+		var editItem = Catagories.findOne({_id: selectedEdit});
+		console.log(editItem);
+		Session.set('editItem', editItem);
+	    // e.target.status.value="";
 	},
+
+// UPDATE Event
+
+	'submit .update' : function(e) {
+		e.preventDefault();
+		// alert('you clicked');
+		console.log(e.target);
+
+		var catItem = e.target.catagory.value;
+		var parentItem = e.target.parentItem.value;
+		var selectedItem = Session.get('selectedItem');
+		var selectedEdit = Session.get('selectedEdit');
+		if(selectedItem){
+		var levelChild = Catagories.findOne({"_id": parentItem}).level + 1;
+		}
+
+		if(selectedItem){
+			console.log('selected item worked in update event');
+			var selectedItemStatus = Catagories.findOne({"_id": selectedItem}).status;
+			console.log(selectedItemStatus);
+		} else {
+			var status = e.target.status.value;
+		}
+
+			if(selectedItemStatus == "Unpublished"){
+				var status = "Unpublished"
+			} else if (selectedItemStatus == "Published") {
+				var status = e.target.status.value;
+			}
+		Catagories.update({ _id: selectedEdit}, {$set: {"catItem": catItem, "parentItem": parentItem, "status": status, "level": levelChild}});
+		console.log("edited")
+		e.target.catagory.value = "";
+		e.target.parentItem.value = "";
+		e.target.status.value = "";
+	},
+
+	'click .cancel': function(e) {
+		Session.set('editItem', "");
+	}
 });
 
 
 
 Template.addNew.helpers({
 
+//-----------------
 // DROPDOWN LIST 
+//-----------------
 
 'catList': function() {
     var results = [];
@@ -135,23 +197,18 @@ Template.addNew.helpers({
     _.each(Catagories.find({parentItem: ''}).fetch(), function(c) {
       mapChildren(c, 0);
     });
-    // const instance = Template.instance();
-    // template.templateDictionary.set('results', results);
-    console.log(results);
     return results;
   },
+
+//-----------------
 // LIST DISPLAY
+//-----------------
 
   'catDisplay': function() {
    
 	var results = [];
     var mapChildren = function(category) {
-     //  var prefix = "";
-    	// var dash = "---";
-    	// for(var i =0; i < level; i++){
-    	// 	prefix = prefix + dash;
-    	// }
-      results.push({_id: category._id, level: category.level, catItem: category.catItem});
+      results.push({_id: category._id, level: category.level, catItem: category.catItem, parentItem: category.parentItem, status: category.status});
       _.each(Catagories.find({parentItem: category._id}).fetch(), function(c) {
         mapChildren(c);
       });
@@ -160,70 +217,28 @@ Template.addNew.helpers({
     _.each(Catagories.find({parentItem: ''}).fetch(), function(c) {
       mapChildren(c);
     });
-    console.log(results);
     return results;
-
- // const instance = Template.instance();
- // var resultsa = Template.instance().templateDictionary.get('results');
- // 		console.log(resultsa[0]);
- // 		console.log(resultsa[2]);
-
-
-
-	// for(var i = 0; i < results.length; i++){
-	// 	var str = results[i].catItem;
-	// 	if(!str.startsWith("-")){
-	// 		var a = results[i].catItem;
-	// 		$(".sub").append('<h1>{{catItem}}</h1>');
-	// 	} else if (str.startsWith("---------")){
-	// 		$(".sub").append('<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;level 3!!</h1>');
-	// 	} else if (str.startsWith("------")){
-	// 		$(".sub").append('<h1>&nbsp;&nbsp;&nbsp;&nbsp;level 2!!</h1>');
-	// 	} else if (str.startsWith("---")){
-	// 		$(".sub").append('<h1>&nbsp;&nbsp;level 1!!</h1>');
-	// 	}
-	//   }
-
   },
 
- // DELETE CATEGORY
+//-----------------
+// DELETE CATEGORY
+//-----------------
+
   'deleteDisabled' : function() {
   	var disabled = Session.get('disabled');
   	if(disabled){
   		return 'disabled';
   	}
   },
-  'myCollection': function () {
-        return Catagories;
-    },
-    settings: function () {
-        return {
-            collection: Catagories,
-            rowsPerPage: 10,
-            showFilter: false,
-            fields: [
-            		 {key: 'catItem', label: 'Categories',cellClass: 'col-md-10'},
-            		 {
-            		 	key: 'level',
-            		    label: 'Level',
-            		    cellClass: 'col-md-2',
-            		    cellClass: function (value, object) {
-						     var css = 'red-cell';
-						     // do some logic here
-						     if (value == 2){
-						     	// return $(td).css("magin-left: 40px;")
-						     	return css;
-						     }
-						     
-						}
-            		  }
-            		]
-        	};
-    },
-  // 'editItem' : function() {
-  // 	var editItem = Session.get('selectedCategory');
-  // 	return editItem;
-  // },
+
+// ------------------
+// EDIT ITEMS
+// ------------------
+	'editItem' : function() {
+		var editItem = Session.get('editItem');
+		return editItem;
+	},
+
 });
 
 
@@ -234,72 +249,62 @@ Template.registerHelper('notequals', function (a) {
 Template.registerHelper('equals', function (a, b) {
       return a === b;
     });
-
-Template.registerHelper('str', function (str) {
-	if(str.startsWith('---')){
-      return str.slice(3);
-	} else {
-		return str;
-	}
-});
-
-
+Template.registerHelper('multiply', function (a, b) {
+      return a*b;
+    });
+Template.registerHelper('add', function (a, b) {
+      return a+b;
+    });
 
 Template.addNew.onRendered(function () {
   	Session.set('disabled', true);
-
-	//  	console.log(results);
- // 	 	console.log(results[0]);
-	// for(var i = 0; i < results.length; i++){
-	// 	var str = results[i].catItem;
-	// 	if(!str.startsWith("-")){
-	// 		$(".sub").append('<h1>level 0!!</h1>');
-	// 	} else if (str.startsWith("---------")){
-	// 		$(".sub").append('<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;level 3!!</h1>');
-	// 	} else if (str.startsWith("------")){
-	// 		$(".sub").append('<h1>&nbsp;&nbsp;&nbsp;&nbsp;level 2!!</h1>');
-	// 	} else if (str.startsWith("---")){
-	// 		$(".sub").append('<h1>&nbsp;&nbsp;level 1!!</h1>');
-	// 	}
-	//   }
-	  
-
 });
 
 
-// if (Meteor.isServer) {
-// Meteor.publish('results', function() {
-//   return results;
-// });
-// }
-
-// Template.addNew.onCreated(function() {
-// this.getresults = () => 
-
-// results = [];
-//     var mapChildren = function(category, level) {
-//       var prefix = "";
-//     	var dash = "---";
-//     	for(var i =0; i < level; i++){
-//     		prefix = prefix + dash;
-//     	}
-//       results.push({_id: category._id, catItem: prefix + category.catItem});
-//       _.each(Catagories.find({parentItem: category._id}).fetch(), function(c) {
-//         mapChildren(c, level + 1);
-//       });
-//     };
-
-//     _.each(Catagories.find({parentItem: ''}).fetch(), function(c) {
-//       mapChildren(c, 0);
-//     });
 
 
-//     // console.log(results[3]);
 
-//     return results;
- 	
-//   this.autorun(() => {
-//     this.subscribe('results', this.getresults());
-//   });
-// });
 
+
+
+
+
+
+
+// // ------------------------
+// // EDIT Categories 
+// // ------------------------
+
+// 	'click .check input' : function(e, template, instance){
+//             //e.preventDefault();
+//             var selected = template.findAll("input[type=checkbox]:checked");
+//             checkedArr = _.map(selected, function(item){
+//                 return item.defaultValue;
+//             });
+//             // instance.state.set('checkedArr', checkedArr);
+//             // // console.log(checkedArr);
+//             // var test = instance.state.get('checkedArr');
+//             // console.log(test);
+//             // console.log('from reactive-dict');
+// 	},
+
+// // 'change .hide-completed input'(event, instance) {
+// //     instance.state.set('hideCompleted', event.target.checked);
+// //   },
+
+// 	'click .edit' : function() {
+//         console.log(checkedArr);
+//         console.log(' from edit button');
+        
+// 	},
+
+// HELPER
+
+  // 'displaychecked' : function() {
+  // 	return checkedArr.list();
+  // 	// const instance = Template.instance();
+  // 	// var demo = instance.state.get('checkedArr');
+  // 	// console.log(demo);
+  // 	// console.log('from displaychecked helper')
+  // 	// return demo;
+  // }

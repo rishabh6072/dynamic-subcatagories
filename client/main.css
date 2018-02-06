@@ -46,11 +46,77 @@ td, th {
 	margin-left: 20px;
 }
 .css {
-	margin-left: 20px;
-	background: red;
+	margin-left: 20em;
+	display: list-item;
 }
 
-.red-cell {
-  /*background: red;*/
-  margin-left: 10px;
+.level2 {
+  	margin-left: 5em;
+	display: block;
+}
+.level1 {
+  	margin-left: 2.5em;
+	display: block;
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+	border-top: none;
+}
+
+.parent-hover {
+	text-align: left;
+	border-color: #ac2925;
+	border-radius: 0px;
+}
+.parent-hover:hover {
+	background-color: #fff;
+	text-align: left;
+	border-color: #ac2925;
+	border-radius: 0px;
+}
+.child-hover {
+	border-color: #398439;
+	text-align: left;
+	border-radius: 0px;
+}
+.child-hover:hover {
+	background-color: #449d44;
+	border-color: #398439;
+	text-align: left;
+	border-radius: 0px;
+}
+
+/*input[type=checkbox] {
+	margin: 10px 10px 0;
+	float: left;
+}
+
+label {
+	display: block;
+}
+
+.bg-info {
+	padding: 10px 0;
+	margin-right: 80%;
+	margin-bottom: 1%;
+	box-shadow: 0 8px 6px -6px black;
+}*/
+
+
+
+.btn-block {
+	color: #fff;
+	font-weight: 600;
+}
+
+/*FOOTER*/
+.well {
+	margin-top: 2%;
+	border-radius: 0px;
+	border: none;
+	background: #292928;
+}
+
+.addNew {
+	background: rgb(252,255,255);
+	min-height: 100vh;
 }
