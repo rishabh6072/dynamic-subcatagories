@@ -1,8 +1,59 @@
 <template name="navbar">
+
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse bg-faded">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="/">Categories</a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      {{#if currentUser}}
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/categories">Manage Categories</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/addarticles">Add Articles</a>
+      </li>
+      {{/if}}
+      
+    </ul>
+    <ul class="navbar-nav my-2 my-lg-0">
+    {{#if currentUser}}
+      <li class="nav-item">
+        <a class="nav-link logout" href="#">Logout</a>
+      </li>
+      {{/if}}
+      {{#if notequals currentUser}}
+      <li class="nav-item">
+        <a class="nav-link" href="/admin">SignIn</a>
+      </li>
+      {{/if}}
+    </ul>
+  </div>
+</nav>
+
+
+<!-- 
+
+<nav class="navbar navbar-toggleable-md navbar-inverse fixed-bottom bg-faded">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+</nav> -->
+
+</template>
+
   
-<nav class="navbar navbar-default">
+<!-- <nav class="navbar navbar-default">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
@@ -13,7 +64,6 @@
       <a class="navbar-brand " href="/">Categories</a>
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
       <li ><a class="{{activehome}}" href="/">Home</a></li>  
@@ -69,8 +119,6 @@
         <li class="navbar-right"><a class="{{activesign}}" href="/admin">SignIn</a></li>
       {{/if}}
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-
-</template>
+    </div>
+  </div>
+</nav> -->

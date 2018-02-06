@@ -8,9 +8,9 @@ import './article.html';
 import { Catagories } from '../api/catagory.js';
 import { Articles } from '../api/article.js';
 
-$.cloudinary.config({
-	cloud_name: "dimhllma1"
-});
+// $.cloudinary.config({
+// 	cloud_name: "dimhllma1"
+// });
 
 Template.addNewArt.events({
 	'submit form' : function(e){

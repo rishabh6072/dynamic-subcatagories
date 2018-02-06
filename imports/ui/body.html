@@ -6,11 +6,6 @@
 	{{> nav}}
 </template>
 
-<template name="nav">
-	<div class="container">
-		<h1>Home Page</h1>
-	</div>
-</template>
 
 <template name="registerLayout">
 	{{> register}}
@@ -25,3 +20,104 @@
 	{{>  displayArt}}
 </template>
 
+
+<template name="nav">
+	    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                 <li>
+                    <button class="btn btn-block btn-sidebar btn-all-articles">All Articles</button>
+                </li>
+ 				               
+ 			{{#each catNav}} 
+ 				<li>
+                    <button class="btn btn-block btn-sidebar" style='padding-left:{{ multiply level 2 }}em;'>{{catItem}}</button>
+                </li>
+            {{/each}}
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+		
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+	            <div class="row">
+		            <div class="col-md-5">
+		                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Categories</a>
+		            </div>
+		            <div class="col-md-7">  	  
+		                <h1>{{#if catHeading}}{{catHeading}}{{else}} ALL Articles {{/if}}</h1>
+		            </div>
+	            </div>
+	            <div class="row">
+	            {{#each showProducts}}
+	            	{{#if equals status "true"}}
+					  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+						 <div class="thumbnail">
+						  <img src="{{imgUrl}}" class="rounded" alt="Image">	
+						   <a href="#"><h3>{{title}}</h3></a>
+						   <h4>{{description}}</h4>
+						 </div>
+					  </div>
+					{{/if}}
+	            {{/each}}
+	            </div>
+
+	            	<!-- <div class="row">
+					{{#each displayArticle}}
+					{{#if equals status "true"}}
+					  <div class="col-xs-6 col-md-3">
+						 <div class="thumbnail">
+						  <img src="{{imgUrl}}" alt="Image">	
+						   <a href="#"><h3>{{title}}</h3></a>
+						   <h4>{{description}}</h4>
+						 </div>
+					  </div>
+					{{/if}}
+					{{/each}}
+					</div> -->
+                <!-- <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p> -->
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+</template>
+
+
+
+
+<!-- <template name="nav">
+	<div class="row">	
+	<div class="col-md-3 collapse" id="collapseExample">
+	  {{#each catNav}}
+	  	<h4>{{catItem}}</h4>
+	  {{/each}}
+	</div>
+	<div id="col9" class="col-md-9">
+		<p>
+		  <a class="btn btn-warning" id="btn-sidebar" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+		    Show Categories
+		  </a>
+		</p>
+	  <h3>Home PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome Page</h3>
+	  	
+	</div>
+	</div>
+</template> -->
