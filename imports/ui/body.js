@@ -70,12 +70,27 @@ Template.nav.helpers({
 			results.push({_id: p._id, title: p.title, status: p.status, imgUrl: p.imgUrl, description: p.description, parentItem: p.parentItem });
 		});
   	} else {
-  		// _.each(Catagories.find({parentItem: selectedItemId}).fetch, function(doc){
-  			
-  		// });
   		_.each(Articles.find({parentItem: selectedItemId}).fetch(), function(p){
 			results.push({_id: p._id, title: p.title, status: p.status, imgUrl: p.imgUrl, description: p.description, parentItem: p.parentItem });
 		});
+  		_.each(Catagories.find({parentItem: selectedItemId}).fetch(), function(doc){
+  			_.each(Articles.find({parentItem: doc._id}).fetch(), function(p){
+  				results.push({_id: p._id, title: p.title, status: p.status, imgUrl: p.imgUrl, description: p.description, parentItem: p.parentItem });
+  			});
+  		});
+
+  // 		var mapArticle = function(articles) {
+		// 	results.push({_id: articles._id, title: articles.title, status: articles.status, imgUrl: articles.imgUrl, description: articles.description, parentItem: articles.parentItem });
+		// 	// console.log(results);
+		// 	_.each(Catagories.find({parentItem: articles.parentItem}).fetch(), function(doc){
+  // 				_.each(Articles.find({parentItem: doc._id}).fetch(), function(p){
+  // 				mapArticle(p);
+  // 				});
+  // 			});
+  // 		}
+  // 		_.each(Articles.find({parentItem: selectedItemId}).fetch(), function(p){
+  // 			mapArticle(p);
+		// });
   	}
   	
   	return results;

@@ -17,45 +17,66 @@ Template.addNew.events({
 		e.preventDefault();
 		var catItem = e.target.catagory.value;
 		var parentItem = e.target.parentItem.value;
-		
-		var selectedItem = Session.get('selectedItem');
-		if(selectedItem){
-		var levelChild = Catagories.findOne({"_id": selectedItem}).level + 1;
-		}
-		if(selectedItem){
-			var selectedItemStatus = Catagories.findOne({"_id": selectedItem}).status;
-			console.log(selectedItemStatus);
-		} else {
-			var status = e.target.status.value;
-		}
-
-			if(selectedItemStatus == "Unpublished"){
-				var status = "Unpublished"
-			} else if (selectedItemStatus == "Published") {
+			var selectedItem = Session.get('selectedItem');
+			if(selectedItem){
+			var levelChild = Catagories.findOne({"_id": selectedItem}).level + 1;
+			}
+			if(selectedItem){
+				var selectedItemStatus = Catagories.findOne({"_id": selectedItem}).status;
+				console.log(selectedItemStatus);
+			} else {
 				var status = e.target.status.value;
 			}
+
+				if(selectedItemStatus == "Unpublished"){
+					var status = "Unpublished"
+				} else if (selectedItemStatus == "Published") {
+					var status = e.target.status.value;
+				}
+
+ 	var sameName = [];
+
+ 		_.each(Catagories.find({catItem: catItem}).fetch(), function(c){
+ 			sameName.push({_id: c._id, catItem: c.catItem, parentItem: c.parentItem});
+ 			console.log(sameName);
+ 		});
+ 		for (var i = 0 ; i< sameName.length; i++){
+ 			console.log("hey")
+ 			if(selectedItem == sameName[i].parentItem){
+ 				var noRepeat = Catagories.findOne({catItem: catItem}).catItem;
+ 				console.log(noRepeat);
+ 				break;
+ 				console.log("after break")
+ 			}
+ 		}
 		
-		if(selectedItem){
-			Catagories.insert({
-			catItem: catItem,
-			status: status,
-			parentItem: selectedItem,
-			level: levelChild,
-			createdAt: new Date(),
-			});
+		if(catItem == noRepeat){
+			FlashMessages.sendError('Category with same name already present at same level of this parent category');
 		} else {
-			Catagories.insert({
-			catItem: catItem,
-			status: status,
-			parentItem: parentItem,
-			level: 0,
-			createdAt: new Date(),
-			});
+			
+			if(selectedItem){
+				Catagories.insert({
+				catItem: catItem,
+				status: status,
+				parentItem: selectedItem,
+				level: levelChild,
+				createdAt: new Date(),
+				});
+			} else {
+				Catagories.insert({
+				catItem: catItem,
+				status: status,
+				parentItem: parentItem,
+				level: 0,
+				createdAt: new Date(),
+				});
+			}
+			 
+			Catagories.update({"_id": parentItem} ,{$push: { "child": catItem }});
+			console.log("submit form event working!!!")
+	        e.target.catagory.value = "";
 		}
-		 
-		Catagories.update({"_id": parentItem} ,{$push: { "child": catItem }});
-		console.log("submit form event working!!!")
-        e.target.catagory.value = "";
+
 	},
 	'click #sel1' : function(e) {
 		console.log("---------");
@@ -135,7 +156,6 @@ Template.addNew.events({
 
 	'submit .update' : function(e) {
 		e.preventDefault();
-		// alert('you clicked');
 		console.log(e.target);
 
 		var catItem = e.target.catagory.value;
@@ -238,6 +258,14 @@ Template.addNew.helpers({
 		var editItem = Session.get('editItem');
 		return editItem;
 	},
+
+
+//---------------
+// Published Unpublished Trick
+//---------------
+	// 'publishedTrick' : function {
+		
+	// }
 
 });
 

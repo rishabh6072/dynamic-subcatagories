@@ -15,7 +15,7 @@
 			<br>
 
 			<div class="form-group">
-			  <select id="sel1" name="parentItem" class="category form-control" value="{{editItem.catItem}}">
+			  <select id="sel1" name="parentItem" class="category form-control" value="{{editItem.catItem}}" >
 				<option value="">Select Parent Category</option>
 				{{#each catList}}
 				  <option value="{{_id}}">{{catItem}}</option>
@@ -44,9 +44,13 @@
 		<div class="container"><H2>Categories</H2></div>
 		{{#each catDisplay}}
 			{{#if equals parentItem ""}}
-				  <button class='btn parent-hover btn-block edit' style='padding-left:{{ add 1 multiply level 4 }}em; display: block;background: #d9534f' name="editcat">{{catItem}} {{#if equals status "Published"}}<i class="fas fa-check"></i>{{else}}<i class="fas fa-times"></i>{{/if}}</button>
+				  <button class='btn parent-hover btn-block edit' style='padding-left:{{ add 1 multiply level 4 }}em; display: block;background: #d9534f' name="editcat">{{catItem}} <em>({{status}})</em>
+				  <!-- <i class="fas {{#if equals status 'Published'}}fa-check {{else}} fa-times {{/if}}"></i> -->
+				  </button>
 				{{else}} 
-				  <button class='btn child-hover btn-block edit' style='padding-left:{{ multiply level 4 }}em; display: block;background: #5cb85c;' name="editcat">{{catItem}} {{#if equals status "Published"}}<i class="fas fa-check"></i>{{else}}<i class="fas fa-times"></i>{{/if}}</button>
+				  <button class='btn child-hover btn-block edit' style='padding-left:{{ multiply level 4 }}em; display: block;background: #5cb85c;' name="editcat">{{catItem}} <em>({{status}})</em>
+				  <!-- <i class="fas {{#if equals status 'Published'}}fa-check {{else}} fa-times {{/if}}"></i> -->
+				  </button>
 			{{/if}}
 		{{/each}}
 	</div>

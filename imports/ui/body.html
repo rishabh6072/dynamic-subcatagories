@@ -27,13 +27,13 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-                 <li>
+                 <li class="li-border">
                     <button class="btn btn-block btn-sidebar btn-all-articles">All Articles</button>
                 </li>
  				               
  			{{#each catNav}} 
- 				<li>
-                    <button class="btn btn-block btn-sidebar" style='padding-left:{{ multiply level 2 }}em;'>{{catItem}}</button>
+ 				<li class="li-border">
+                    <button class="btn btn-block btn-sidebar" style='padding-left:{{ multiply level 2 }}em; {{#if equals level 0}}background: #d9534f;{{/if}}'>{{catItem}}</button>
                 </li>
             {{/each}}
             </ul>
