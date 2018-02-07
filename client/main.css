@@ -17,6 +17,8 @@ body {
 }
 
 #wrapper {
+  min-height: 100%;
+  height: 100%;
   padding-left: 0;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
@@ -150,7 +152,7 @@ body {
 	height: 250px;
 	object-fit: cover;
 	background-blend-mode: saturation;
-	border: 1px solid black;
+	border: 1px solid rgba(0,0,0,0.5);
 }
 
 .categories, .addarticles, .admin, .root {
@@ -307,3 +309,48 @@ label {
 .li-border .btn {
 	border-radius: 0px;
 }
+
+h1 {
+	font-family: 'Merienda', cursive !important;
+	margin-bottom: 1rem !important;
+	text-align: center;
+}
+
+h3 {
+	font-family: 'Merienda', cursive !important;
+	margin-bottom: 1rem !important;
+
+}
+.display-3 {
+	font-family: 'Merienda', cursive !important;
+	color: #fff;
+}
+h4{
+	font-family: 'Merienda', cursive !important;
+	color: rgba(0,0,0,0.6) !important;
+}
+
+.thumbnail a {
+	color: rgba(0,0,0,0.8) !important;
+}
+
+.jumbotron {
+	background-image: url("a.jpg") !important;
+	border-radius: 0px !important;
+    /*margin-bottom: 0;`enter code here`*/
+    min-height: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+.lead2 {
+	text-align: center !important;
+	color: rgba(217, 83, 79, 0.5)
+}
+
+.c {
+	color: rgba(217, 83, 79, 0.8);
+}
+

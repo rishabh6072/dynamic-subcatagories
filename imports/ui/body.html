@@ -39,18 +39,29 @@
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
-		
+
+        <!-- ********** -->
+        <!-- JUMBOTRON -->
+        <!-- **********-->
+		<div class="jumbotron">
+		  <p class="lead">
+		    <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Categories</a>
+		  </p>
+		  <h1 class="display-3"><span class="c">Categories</span></h1>
+		  <p class="lead lead2">Assignment</p>
+		  <hr class="my-4">
+		  <p></p>
+		  
+		</div>
+
+        <!-- ********** -->
+        <!-- JUMBOTRON END-->
+        <!-- **********-->
+
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-	            <div class="row">
-		            <div class="col-md-5">
-		                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Categories</a>
-		            </div>
-		            <div class="col-md-7">  	  
 		                <h1>{{#if catHeading}}{{catHeading}}{{else}} ALL Articles {{/if}}</h1>
-		            </div>
-	            </div>
 	            <div class="row">
 	            {{#each showProducts}}
 	            	{{#if equals status "true"}}
