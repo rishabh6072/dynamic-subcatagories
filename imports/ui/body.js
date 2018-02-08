@@ -65,12 +65,28 @@ Template.nav.helpers({
   'showProducts' : function() {
   	var results = [];
   	var selectedItemId = Session.get('selectedItemId');
+    // console.log(selectedItemId + ' you clicked ');
+
   	if(selectedItemId == "all"){
   		_.each(Articles.find({}).fetch(), function(p){
 			results.push({_id: p._id, title: p.title, status: p.status, imgUrl: p.imgUrl, description: p.description, parentItem: p.parentItem });
 		});
   	} else {
-  		_.each(Articles.find({parentItem: selectedItemId}).fetch(), function(p){
+
+  		// _.each(Articles.find({parentItem: selectedItemId}).fetch(), function(p){
+    //   results.push({_id: p._id, title: p.title, status: p.status, imgUrl: p.imgUrl, description: p.description, parentItem: p.parentItem });
+    // }); 
+
+    //   _.each(Catagories.find({parentItem: selectedItemId}).fetch(), function(doc){
+    //     _.each(Articles.find({parentItem: doc._id}).fetch(), function(p){
+    //       results.push({_id: p._id, title: p.title, status: p.status, imgUrl: p.imgUrl, description: p.description, parentItem: p.parentItem });
+    //     });
+    //   });
+
+
+
+// Till Now
+      _.each(Articles.find({parentItem: selectedItemId}).fetch(), function(p){
 			results.push({_id: p._id, title: p.title, status: p.status, imgUrl: p.imgUrl, description: p.description, parentItem: p.parentItem });
 		});
   		_.each(Catagories.find({parentItem: selectedItemId}).fetch(), function(doc){
@@ -78,26 +94,64 @@ Template.nav.helpers({
   				results.push({_id: p._id, title: p.title, status: p.status, imgUrl: p.imgUrl, description: p.description, parentItem: p.parentItem });
   			});
   		});
+// Till Now
 
-  // 		var mapArticle = function(articles) {
-		// 	results.push({_id: articles._id, title: articles.title, status: articles.status, imgUrl: articles.imgUrl, description: articles.description, parentItem: articles.parentItem });
-		// 	// console.log(results);
-		// 	_.each(Catagories.find({parentItem: articles.parentItem}).fetch(), function(doc){
-  // 				_.each(Articles.find({parentItem: doc._id}).fetch(), function(p){
-  // 				mapArticle(p);
-  // 				});
-  // 			});
-  // 		}
-  // 		_.each(Articles.find({parentItem: selectedItemId}).fetch(), function(p){
-  // 			mapArticle(p);
-		// });
-  	}
-  	
+// LOGIC FOR DISPLAYING ALL PRODUCTS UNDER PARENT CATEGORY
+
+  	// var mapCategory = function(category) {
+   //    console.log(category.parentItem)
+   //    _.each(Catagories.find({parentItem: category.parentItem}).fetch(), function(doc){
+   //        console.log(doc);
+   //        mapArticle(doc);
+   //      });
+   //    }
+   //  var mapArticle = function(article){
+   //    console.log(article);
+   //      var item2 = Articles.find({parentItem: article._id}).count(); 
+   //      console.log(item2);
+   //      if(item2 !== 0){
+   //     _.each(Articles.find({parentItem: article._id}).fetch(), function(articles){
+   //        console.log(articles)
+   //        results.push({_id: articles._id, title: articles.title, status: articles.status, imgUrl: articles.imgUrl, description: articles.description, parentItem: articles.parentItem })
+   //        mapCategory(articles);
+   //      });
+   //      } else {
+   //        console.log("hey there ")
+   //        _.each(Catagories.find({parentItem: article.parentItem}).fetch(), function(doc){
+   //        console.log(doc);
+   //        mapArticle(doc);
+   //      });
+   //      }
+   //    console.log(results);
+   //  }
+
+   //  var item = Articles.find({parentItem: selectedItemId}).count();
+   //  console.log(item)
+   //      if(item !== 0){
+   //          console.log("item found");
+   //        _.each(Articles.find({parentItem: selectedItemId}).fetch(), function(p){
+   //          console.log(p);
+   //        results.push({_id: p._id, title: p.title, status: p.status, imgUrl: p.imgUrl, description: p.description, parentItem: p.parentItem });
+   //        mapCategory(p);
+   //        });
+   //      } else {
+   //        _.each(Catagories.find({parentItem: selectedItemId}).fetch(), function(doc){
+   //          console.log(doc);
+   //          mapArticle(doc);
+   //        });
+   //      }
+   //  }
+
+// LOGIC ENDS HERE
+}
   	return results;
   },
   'catHeading' : function() {
   	var selectedItemId = Session.get('selectedItemId');
-  	var catItem = Catagories.findOne({_id: selectedItemId }).catItem;
+    if(selectedItemId = "all"){
+    }else {
+      var catItem = Catagories.findOne({_id: selectedItemId }).catItem;
+    }
   	return	catItem;
   }
 });

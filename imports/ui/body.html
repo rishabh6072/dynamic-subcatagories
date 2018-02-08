@@ -4,20 +4,24 @@
 <template name="homeLayout">
 	{{> navbar}}
 	{{> nav}}
+	{{> footer}}
 </template>
 
 
 <template name="registerLayout">
 	{{> register}}
+	{{> footer}}
 </template>
 
 <template name="addcatLayout">
 	{{>  addNew}}
+	{{> footer}}
 </template>
 
 <template name="addartLayout">
 	{{>  addNewArt}}
 	{{>  displayArt}}
+	{{> footer}}
 </template>
 
 
@@ -33,7 +37,7 @@
  				               
  			{{#each catNav}} 
  				<li class="li-border">
-                    <button class="btn btn-block btn-sidebar" style='padding-left:{{ multiply level 2 }}em; {{#if equals level 0}}background: #d9534f;{{/if}}'>{{catItem}}</button>
+                    <button class="btn btn-block btn-sidebar" style='padding-left:{{ multiply level 2 }}em; {{#if equals level 0}}background: rgba(217, 83, 79, 0.7);{{/if}}'>{{catItem}}</button>
                 </li>
             {{/each}}
             </ul>
@@ -45,7 +49,7 @@
         <!-- **********-->
 		<div class="jumbotron">
 		  <p class="lead">
-		    <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Categories</a>
+		    <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle"><i class="fas fa-arrows-alt-h"></i> Categories</a>
 		  </p>
 		  <h1 class="display-3"><span class="c">Categories</span></h1>
 		  <p class="lead lead2">Assignment</p>
@@ -74,23 +78,7 @@
 					  </div>
 					{{/if}}
 	            {{/each}}
-	            </div>
-
-	            	<!-- <div class="row">
-					{{#each displayArticle}}
-					{{#if equals status "true"}}
-					  <div class="col-xs-6 col-md-3">
-						 <div class="thumbnail">
-						  <img src="{{imgUrl}}" alt="Image">	
-						   <a href="#"><h3>{{title}}</h3></a>
-						   <h4>{{description}}</h4>
-						 </div>
-					  </div>
-					{{/if}}
-					{{/each}}
-					</div> -->
-                <!-- <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p> -->
+	            </div>	
             </div>
         </div>
         <!-- /#page-content-wrapper -->
@@ -111,24 +99,11 @@
     </script>
 </template>
 
-
-
-
-<!-- <template name="nav">
-	<div class="row">	
-	<div class="col-md-3 collapse" id="collapseExample">
-	  {{#each catNav}}
-	  	<h4>{{catItem}}</h4>
-	  {{/each}}
+<template name="footer">
+	<div class="card card-inverse" style="background-color: #333; border-color: #333; border-radius: 0px;">
+	  <div class="card-block">
+	    <p class="card-text">Categories &copy; 2018</p>
+	    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+	  </div>
 	</div>
-	<div id="col9" class="col-md-9">
-		<p>
-		  <a class="btn btn-warning" id="btn-sidebar" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-		    Show Categories
-		  </a>
-		</p>
-	  <h3>Home PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome PageHome Page</h3>
-	  	
-	</div>
-	</div>
-</template> -->
+</template>
