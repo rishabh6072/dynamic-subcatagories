@@ -36,9 +36,11 @@
                 </li>
  				               
  			{{#each catNav}} 
+ 			{{#if equals status "Published"}}
  				<li class="li-border">
                     <button class="btn btn-block btn-sidebar" style='padding-left:{{ multiply level 2 }}em; {{#if equals level 0}}background: rgba(217, 83, 79, 0.7);{{/if}}'>{{catItem}}</button>
                 </li>
+            {{/if}}
             {{/each}}
             </ul>
         </div>
@@ -52,8 +54,10 @@
 		    <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle"><i class="fas fa-arrows-alt-h"></i> Categories</a>
 		  </p>
 		  <h1 class="display-3"><span class="c">Categories</span></h1>
-		  <p class="lead lead2">Assignment</p>
 		  <hr class="my-4">
+		  <br>
+		  <br>
+		  <p class="lead lead2"><h2>{{#if catHeading}}{{catHeading}}{{else}} ALL Articles {{/if}}</h2></p>
 		  <p></p>
 		  
 		</div>
@@ -65,7 +69,7 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-		                <h1>{{#if catHeading}}{{catHeading}}{{else}} ALL Articles {{/if}}</h1>
+		                <h1></h1>
 	            <div class="row">
 	            {{#each showProducts}}
 	            	{{#if equals status "true"}}

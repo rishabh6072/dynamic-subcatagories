@@ -351,7 +351,7 @@ h4{
 
 .lead2 {
 	text-align: center !important;
-	color: rgba(217, 83, 79, 0.5)
+	color: rgba(217, 83, 79, 1)
 }
 
 .c {
@@ -398,3 +398,21 @@ h4{
 
 
 /*SCROLLBAR CSS ENDS*/
+
+
+.register-content {
+  min-height: 80vh;
+}
+
+.pubList, .unpubList {
+  margin-top: 1em;
+}
+
+.alertArtdelete {
+  top: -.7em;
+  right: .2em;
+  position: absolute;
+  z-index: 1;
+  background: #fff;
+  border-radius: 50%;
+}

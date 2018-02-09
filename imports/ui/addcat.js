@@ -167,9 +167,9 @@ Template.addNew.events({
 		}
 
 		if(selectedItem){
-			console.log('selected item worked in update event');
+			// console.log('selected item worked in update event');
 			var selectedItemStatus = Catagories.findOne({"_id": selectedItem}).status;
-			console.log(selectedItemStatus);
+			// console.log(selectedItemStatus);
 		} else {
 			var status = e.target.status.value;
 		}
@@ -180,6 +180,18 @@ Template.addNew.events({
 				var status = e.target.status.value;
 			}
 		Catagories.update({ _id: selectedEdit}, {$set: {"catItem": catItem, "parentItem": parentItem, "status": status, "level": levelChild}});
+		
+		// var mapChild = function (document){
+		// 	Catagories.find({parentItem: document._id}).forEach(function (doc){
+		// 		Catagories.update({ _id: selectedEdit}, {$set: {"catItem": catItem, "parentItem": parentItem, "status": status, "level": levelChild}});
+		// 		mapChild(doc);
+		// 	});
+		// }
+		// Catagories.find({parentItem: selectedEdit}).forEach(function (doc) {
+		// 	Catagories.update({ _id: selectedEdit}, {$set: {"catItem": catItem, "parentItem": parentItem, "status": status, "level": levelChild}});
+		// 	mapChild(doc);
+		// });
+
 		console.log("edited")
 		e.target.catagory.value = "";
 		e.target.parentItem.value = "";
@@ -188,9 +200,8 @@ Template.addNew.events({
 
 	'click .cancel': function(e) {
 		Session.set('editItem', "");
-	}
+	},
 });
-
 
 
 Template.addNew.helpers({
@@ -286,6 +297,7 @@ Template.registerHelper('add', function (a, b) {
 
 Template.addNew.onRendered(function () {
   	Session.set('disabled', true);
+  	
 });
 
 

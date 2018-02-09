@@ -3,15 +3,17 @@
 	<div class="container">
 	<h1>Add Article</h1>
 	{{> flashMessages}}
+	{{> sAlert}}
 	<form class="form-horizontal">
 		<div class="form-group">
-			<input type="text" name="title" class="input-cat form-control" placeholder="Article Name">
+			<input type="text" name="title" class="input-cat form-control" placeholder="Article Name" required>
 		</div>
 		<div class="form-group">
-			<input type="text" name="description" class="input-cat form-control" placeholder="Description">
+			<input type="text" name="description" class="input-cat form-control" placeholder="Description" required>
 		</div>
 		<div class="form-group">
-			<input type="file" name="image" id="image-upload" class="form-control">
+			<input type="file" name="image" id="image-upload" class="form-control" required>
+
 		</div>
 		<div class="form-group" style="">
 			<label>Status :</label>
@@ -36,11 +38,32 @@
 <template name="displayArt">
 	
 <div class="container">
-	<h3>All Articles</h3>
+<button class="published btn btn-warning">Show Published Articles</button>
+<button class="unpublished btn btn-warning">Show Unpublished Articles</button>
+<div class="pubList">
+	<h3>Published Articles</h3>
 	<div class="row">
 
 	{{#each displayArticle}}
 	{{#if equals status "true"}}
+	  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+		 <div class="thumbnail">
+		  <img src="{{imgUrl}}" class="rounded" alt="Image">
+		  <button class="alertArtdelete"><i class="fas fa-trash-alt"></i></button>	
+		   <a href="#"><h3>{{title}}</h3></a>
+		   <h4>{{description}}</h4>
+		 </div>
+	  </div>
+	{{/if}}
+	{{/each}}
+	</div>
+</div>
+<div class="unpubList">
+	<h3>Unpublished Articles</h3>
+	<div class="row">
+
+	{{#each displayArticle}}
+	{{#if equals status "false"}}
 	  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
 		 <div class="thumbnail">
 		  <img src="{{imgUrl}}" class="rounded" alt="Image">	
@@ -51,6 +74,7 @@
 	{{/if}}
 	{{/each}}
 	</div>
+</div>
 </div>
 </template>
 

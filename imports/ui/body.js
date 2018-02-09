@@ -11,10 +11,6 @@ import './register.js';
 import './addcat.js';
 import './navbar.js';
 import './article.js';
-// import './article.html';
-// import './navbar.html';
-// import './addcat.html';
-// import './register.html';
 
   FlashMessages.configure({
     autoHide: true,
@@ -90,9 +86,11 @@ Template.nav.helpers({
 			results.push({_id: p._id, title: p.title, status: p.status, imgUrl: p.imgUrl, description: p.description, parentItem: p.parentItem });
 		});
   		_.each(Catagories.find({parentItem: selectedItemId}).fetch(), function(doc){
-  			_.each(Articles.find({parentItem: doc._id}).fetch(), function(p){
-  				results.push({_id: p._id, title: p.title, status: p.status, imgUrl: p.imgUrl, description: p.description, parentItem: p.parentItem });
-  			});
+        if(doc.status == "Published"){
+          _.each(Articles.find({parentItem: doc._id}).fetch(), function(p){
+          results.push({_id: p._id, title: p.title, status: p.status, imgUrl: p.imgUrl, description: p.description, parentItem: p.parentItem });
+         });
+        }
   		});
 // Till Now
 
@@ -148,12 +146,9 @@ Template.nav.helpers({
   },
   'catHeading' : function() {
   	var selectedItemId = Session.get('selectedItemId');
-    if(selectedItemId = "all"){
-    }else {
       var catItem = Catagories.findOne({_id: selectedItemId }).catItem;
-    }
   	return	catItem;
-  }
+  },
 });
 
 
